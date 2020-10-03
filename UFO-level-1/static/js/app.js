@@ -1,39 +1,35 @@
-// Reference the table
+// Reference variables
 let tbody = d3.select("tbody");
 let filterButton = d3.select("#filter-btn")
 
-// console log data
-console.log(data)
-// loop throught data
-// data.forEach(function(UFOreport) {
-//     console.log(UFOreport);   
-// });
+// console.log(data)
+
+// loop through data
 // add a row for each object using d3
 data.forEach((UFOreport) => {
-    console.log(UFOreport);
-    var row = tbody.append("tr");   
+    // console.log(UFOreport);
+    row = tbody.append("tr");   
 
     Object.entries(UFOreport).forEach(([key,value]) => {
-        var cell = tbody.append("td")
+        let cell = tbody.append("td")
         cell.text(value);
     })
 });
 
-// select submit button, do work
+// filter function on button click
 const filterUFOS = () => {
 
      // prevent page from refreshing
      d3.event.preventDefault();
 
     // select input element
-    // let inputValue
     let inputElement = d3.select("#datetime");
     inputValue = inputElement.property("value");
+    
     // add filter date
     filteredData = data.filter(row => row.datetime === inputValue);
-
-
-    // Clear table and loop to assign filtered values
+    
+    // Populate table with filtered values
     tbody.html("");
     filteredData.forEach((sighting) => {
         let row = tbody.append("tr");
