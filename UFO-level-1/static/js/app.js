@@ -1,5 +1,7 @@
 // Reference the table
-var tbody = d3.select("tbody")
+let tbody = d3.select("tbody");
+let filterButton = d3.select("#filter-btn")
+
 // console log data
 console.log(data)
 // loop throught data
@@ -16,17 +18,50 @@ data.forEach((UFOreport) => {
         cell.text(value);
     })
 });
-// select submit button
-var submit = d3.select("#filter-btn");
-// click handler
-submit.on("click", function() {
 
-    // prevent page from refreshing
-    d3.event.preventDefault();
+// select submit button, do work
+const filterUFOS = () => {
+
+     // prevent page from refreshing
+     d3.event.preventDefault();
+
     // select input element
-    var inputElement = d3.select("#datetime");
-    // retrieve element value
-    var inputValue = inputElement.property("value");
-})
+    // let inputValue
+    let inputElement = d3.select("#datetime");
+    inputValue = inputElement.property("value");
+    // add filter date
+    filteredData = data.filter(row => row.datetime === inputValue);
 
-var filteredData = data.filter(row => row.datetime === inputValue);
+
+    // Clear table and loop to assign filtered values
+    tbody.html("");
+    filteredData.forEach((sighting) => {
+        let row = tbody.append("tr");
+        Object.values(sighting).forEach(value => {
+            let cell = row.append("td");
+            cell.text(value);
+
+        })
+    })
+}
+// Table reset function
+// const runReset = () => {
+//     tbody.html("")
+//     data.forEach((sighting) => {
+//         let row = tbody.append("tr");
+//         Object.values(sighting).forEach(value => {
+//             let cell = row.append("td");
+//             cell.text(value);
+//         })
+//     })
+// }
+
+// submit = d3.select("#filter-btn");
+// click handler
+// events
+filterButton.on("click", filterUFOS)
+
+   
+
+
+   
