@@ -16,3 +16,17 @@ data.forEach((UFOreport) => {
         cell.text(value);
     })
 });
+// select submit button
+var submit = d3.select("#filter-btn");
+// click handler
+submit.on("click", function() {
+
+    // prevent page from refreshing
+    d3.event.preventDefault();
+    // select input element
+    var inputElement = d3.select("#datetime");
+    // retrieve element value
+    var inputValue = inputElement.property("value");
+})
+
+var filteredData = data.filter(row => row.datetime === inputValue);
